@@ -1,0 +1,33 @@
+.container
+    width 100%
+    height fit-content
+    max-width 56u
+    margin 2u 1u 0
+    border 1px solid $UI.colors.secondary
+    background-color rgba($UI.colors.secondary, .4)
+    +desktop()
+        margin-top 3u
+    +wide()
+        margin: 3u 0 0 2u
+
+.container.first
+    +wide()
+        margin-left 0
+
+.header
+    padding 1u 2u
+    border-bottom 1px solid $UI.colors.secondary
+    +desktop()
+        padding 2u 3u
+
+.columnTitle
+    white-space nowrap
+    overflow hidden
+    text-overflow: ellipsis
+    font(xxl)
+
+.footer
+    padding 1u 2u
+    border-top 1px solid $UI.colors.secondary
+    +desktop()
+        padding 2u 3u

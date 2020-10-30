@@ -1,0 +1,47 @@
+.container
+    margin 1u 0 3u
+    +tablet()
+        margin 2u 0 4u
+    +desktop()
+        margin 2u 0 5u
+    +wide()
+        margin 4u 0 8u
+
+.board
+    width calc(100% - 2u)
+    height 15u
+    margin 2u 1u 0
+    border 1px solid $UI.colors.secondary
+    justify-content center
+    background-color rgba($UI.colors.secondary, .4)
+    +tablet()
+        width calc(50% - 2u)
+    +desktop()
+        width calc(33.3% - 2u)
+        height 20u
+        margin-top 3u
+    +wide()
+        width calc(25% - 2u)
+        height 25u
+        margin-top 3u
+
+.boardTitle
+    margin 1u
+    text-align center
+    overflow hidden
+    font(xxl)
+    +desktop()
+        margin 2u
+    +wide()
+        margin 3u
+        font(xxxl)
+
+.addBoard
+    width 100%
+    margin-top 2u
+    margin-left 1u
+    align-items start
+    +desktop()
+        margin-top 3u
+    +wide()
+        margin-top 3u
