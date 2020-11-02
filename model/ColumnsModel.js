@@ -15,6 +15,15 @@ export default class ColumnsModel extends BaseModel {
     }
 
     async deleteColumn (id) {
-        await this.root.del('columns.' + id)
+        this.root.del('columns.' + id)
+    }
+
+    async reorderTasks (columnId, newTasksOrder) {
+        this.scope('columns.' + columnId).set('tasks', newTasksOrder)
+    }
+
+    async resetTask (startColumnId, finishColumnId, newStartTasksOrder, newFinishTasksOrder) {
+        this.scope('columns.' + startColumnId).set('tasks', newStartTasksOrder)
+        this.scope('columns.' + finishColumnId).set('tasks', newFinishTasksOrder)
     }
 }
