@@ -1,27 +1,22 @@
 import React, {useState} from 'react'
-import { observer, useLocal, useDoc } from 'startupjs'
+import { observer, useLocal, useModel, useDoc } from 'startupjs'
 import './index.styl'
-import { Modal, TextInput, Span } from '@startupjs/ui'
+import { Modal, TextInput } from '@startupjs/ui'
 
-export default observer(function AddColumn ({ style, visible, setVisible, columns }) {
+export default observer(function AddColumn ({ style, visible, setVisible }) {
     const [columnTitle, setColumnTitle] = useState('')
-    const [titleUsed, setTitleUsed] = useState(false)
     const [boardId] = useLocal('$render.params.boardId')
+    const $columns = useModel('columns')
     const [, $board] = useDoc('boards', boardId)
 
     const closeModal = () => {
         setVisible(false)
-        setTitleUsed(false)
         setColumnTitle('')
     }
     
-    const addNewColumn = () => {
-        if ( columns.includes(columnTitle) ) {
-            setTitleUsed(true)
-            return
-        }
-
-        $board.addNewColumn(columnTitle)
+    const addNewColumn = async () => {
+        const columnId = await $columns.addNewColumn(boardId, columnTitle)
+        $board.addNewColumn(columnId)
         closeModal()
     }
 
@@ -38,9 +33,6 @@ export default observer(function AddColumn ({ style, visible, setVisible, column
                 placeholder='New column title'
                 value=columnTitle
                 onChangeText=setColumnTitle
-                onFocus=() => setTitleUsed(false)
             )
-            if titleUsed
-                Span.error '#{columnTitle}' column already exist
     `
 })

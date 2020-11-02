@@ -1,11 +1,11 @@
 import React from 'react'
-import { observer, useLocal, useDoc } from 'startupjs'
+import { observer, useModel, useDoc } from 'startupjs'
 import './index.styl'
 import { Modal, Span } from '@startupjs/ui'
 
-export default observer(function DeleteColumn ({ style, visible, setVisible, tasks, index }) {
-    const [boardId] = useLocal('$render.params.boardId')
-    const [, $board] = useDoc('boards', boardId)
+export default observer(function DeleteColumn ({ style, visible, setVisible, column, index, tasks }) {
+    const $columns = useModel('columns')
+    const [, $board] = useDoc('boards', column.board_id)
 
     const closeModal = () => {
         setVisible(false)
@@ -14,6 +14,7 @@ export default observer(function DeleteColumn ({ style, visible, setVisible, tas
     const deleteColumn = () => {
         if (tasks.length) return
 
+        $columns.deleteColumn(column.id)
         $board.deleteColumn(index)
         closeModal()
     }

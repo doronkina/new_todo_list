@@ -1,20 +1,22 @@
 import React, {useState} from 'react'
-import { observer, useLocal, useModel } from 'startupjs'
+import { observer, useModel, useDoc } from 'startupjs'
 import './index.styl'
 import { Modal, TextInput } from '@startupjs/ui'
 
-export default observer(function AddTask ({ style, visible, setVisible, status }) {
+export default observer(function AddTask ({ style, visible, setVisible, columnId }) {
     const [taskText, setTaskText] = useState('')
-    const [boardId] = useLocal('$render.params.boardId')
     const $tasks = useModel('tasks')
+    const [, $column] = useDoc('columns', columnId)
 
     const closeModal = () => {
         setVisible(false)
         setTaskText('')
     }
     
-    const addNewTask = () => {
-        $tasks.addNewTask(boardId, status, taskText)
+    const addNewTask = async () => {
+        const taskId = await $tasks.addNewTask(columnId, taskText)
+        console.log(taskId)
+        $column.addNewTask(taskId)
         closeModal()
     }
 

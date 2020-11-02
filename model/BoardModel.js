@@ -1,8 +1,9 @@
 import { BaseModel } from 'startupjs/orm'
 
 export default class BoardModel extends BaseModel {
-    async addNewColumn (columnTitle) {
-        await this.push('columns', columnTitle)
+    async addNewColumn (columnId) {
+        console.log(columnId)
+        await this.push('columns', columnId)
     }
 
     async deleteColumn (index) {
