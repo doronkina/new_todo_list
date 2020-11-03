@@ -5,6 +5,7 @@ import React from 'react'
 import App from 'startupjs/app'
 import { observer, model } from 'startupjs'
 import { Platform } from 'react-native'
+import { auth } from '@dmapper/auth'
 
 // Frontend micro-services
 import * as main from '../main'
@@ -17,10 +18,11 @@ if (Platform.OS === 'web') window.model = model
 // Initialization must start before doing any subscribes to data.
 init({ baseUrl: BASE_URL, orm })
 
-export default observer(() => {
+// export default observer(() => {
+export default observer.__wrapObserverMeta(observer.__makeObserver(() => {
   return pug`
     App(
-      apps={main}
+      apps={auth, main}
     )
   `
-})
+}))

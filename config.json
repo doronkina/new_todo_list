@@ -5,5 +5,7 @@
   "BASE_URL": "http://localhost:3000",
   "REDIS_URL": "redis://localhost:6379/1",
   "MONGO_URL": "mongodb://localhost:27017/helloworld",
-  "COPY_TO_ENV": ["MONGO_URL"]
+  "COPY_TO_ENV": ["MONGO_URL"],
+  "AUTH_STRATEGIES": ["local"],
+  "PUBLIC": ["AUTH_STRATEGIES"]
 }

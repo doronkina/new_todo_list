@@ -4,6 +4,9 @@ import startupjsServer from 'startupjs/server'
 import api from './api'
 import getMainRoutes from '../main/routes'
 import { initApp } from 'startupjs/app/server'
+import { initAuth } from '@dmapper/auth/server'
+import { getAuthRoutes } from '@dmapper/auth/isomorphic'
+import nconf from 'nconf'
 
 // Init startupjs ORM.
 init({ orm })
@@ -12,10 +15,18 @@ init({ orm })
 startupjsServer({
   getHead,
   appRoutes: [
-    ...getMainRoutes()
+    ...getMainRoutes(),
+    ...getAuthRoutes()
   ]
 }, (ee, options) => {
   initApp(ee)
+  initAuth(ee, {
+    strategies: {
+      local: {
+        hooks: {}
+      }
+    }
+  })
 
   ee.on('routes', expressApp => {
     expressApp.use('/api', api)
