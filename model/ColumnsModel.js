@@ -22,7 +22,7 @@ export default class ColumnsModel extends BaseModel {
         this.scope('columns.' + columnId).set('tasks', newTasksOrder)
     }
 
-    async resetTask (startColumnId, finishColumnId, newStartTasksOrder, newFinishTasksOrder) {
+    async moveTask (startColumnId, finishColumnId, newStartTasksOrder, newFinishTasksOrder) {
         this.scope('columns.' + startColumnId).set('tasks', newStartTasksOrder)
         this.scope('columns.' + finishColumnId).set('tasks', newFinishTasksOrder)
     }

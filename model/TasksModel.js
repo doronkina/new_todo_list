@@ -16,4 +16,8 @@ export default class TasksModel extends BaseModel {
     async deleteTask (id) {
         await this.root.del('tasks.' + id)
     }
+
+    async moveTask (taskId, columnId) {
+        this.scope('tasks.' + taskId).set('column_id', columnId)
+    }
 }

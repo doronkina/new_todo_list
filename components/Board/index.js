@@ -12,6 +12,7 @@ export default observer(function Board ({ style }) {
     const [board] = useDoc('boards', boardId)
     const [columns] = useQueryIds('columns', board.columns)
     const $columns = useModel('columns')
+    const $tasks = useModel('tasks')
 
     const onDragEnd = res => {
         const {source, destination, draggableId} = res
@@ -36,7 +37,8 @@ export default observer(function Board ({ style }) {
         const newFinishTasksOrder = [...finish.tasks]
         newFinishTasksOrder.splice(destination.index, 0, draggableId)
 
-        $columns.resetTask(start.id, finish.id, newStartTasksOrder, newFinishTasksOrder)
+        $columns.moveTask(start.id, finish.id, newStartTasksOrder, newFinishTasksOrder)
+        $tasks.moveTask(draggableId, finish.id)
     }
 
     return pug`
